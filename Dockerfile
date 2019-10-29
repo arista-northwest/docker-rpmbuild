@@ -7,7 +7,8 @@ RUN \
     rpm-build \
     rpmdevtools \
     sudo \
-    python2
+    python2 \
+    python-setuptools
     # && \
     #dnf clean all
 
