@@ -1,17 +1,26 @@
-FROM fedora:latest
+FROM centos:7
 
-RUN dnf -y install \
+# rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools
+RUN \
+    yum -y install \
     mock \
     rpm-build \
     rpmdevtools \
     sudo \
-    python2 && \
-    dnf clean all
+    python2
+    # && \
+    #dnf clean all
 
-RUN useradd -m rpmbuild && \
+RUN \
+    useradd -m rpmbuild && \
     echo "rpmbuild ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/rpmbuild
 
 USER rpmbuild
+
+RUN rpmdev-setuptree 
+    # && \
+    #echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
+
 # WORKDIR /home/rpmbuild
 
 VOLUME project
